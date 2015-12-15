@@ -7,11 +7,13 @@ RUN wget --quiet --no-check-certificate -O - https://www.postgresql.org/media/ke
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install pgbouncer vim
-RUN mkdir /var/run/postgresql
 
 ADD ./config.ini /etc/pgbouncer/config.ini
 
-EXPOSE 6432
-VOLUME /var/run/postgresql/.s.PGSQL.6432
+RUN touch /etc/pgbouncer/pgbouncer_overrides.ini
+RUN touch /etc/pgbouncer/databases_overrides.ini
 
-ENTRYPOINT ["pgbouncer", "/etc/pgbouncer/config.ini"]
+EXPOSE 6432
+VOLUME /var/run/postgresql/
+
+CMD ["pgbouncer", "/etc/pgbouncer/config.ini"]
