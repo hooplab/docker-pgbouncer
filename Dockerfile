@@ -10,8 +10,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install pgbouncer vim
 
 ADD ./config.ini /etc/pgbouncer/config.ini
 
-RUN touch /etc/pgbouncer/pgbouncer_overrides.ini
-RUN touch /etc/pgbouncer/databases_overrides.ini
+ADD pgbouncer_overrides.ini /etc/pgbouncer/pgbouncer_overrides.ini
+ADD databases_overrides.ini /etc/pgbouncer/databases_overrides.ini
 
 EXPOSE 6432
 VOLUME /var/run/postgresql/
