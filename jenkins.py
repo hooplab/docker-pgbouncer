@@ -34,8 +34,8 @@ for environment in os.listdir(pgbouncer):
         # Configuration had been copied, build and publish docker image
         full_image_name = "{}:{}.{}".format(image, environment, build)
         logging.info("Creating and publishing image {}".format(full_image_name))
-        sh.sh("-c", "docker build -t {} .".format(full_image_name), _out=log_sh)
-        sh.sh("-c", "docker push {}".format(full_image_name))
+        sh.sh("-c", "sudo docker build -t {} .".format(full_image_name), _out=log_sh)
+        sh.sh("-c", "sudo docker push {}".format(full_image_name))
 
         logging.info("Deleting temporary configuration files")
         for file_copied in files_copied:
